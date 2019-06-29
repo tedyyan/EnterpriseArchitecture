@@ -1,6 +1,7 @@
 package edu.mum.cs544;
 
-import java.sql.Date;
+import java.awt.PopupMenu;
+import java.awt.event.PaintEvent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,77 +16,37 @@ public class App {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        Order order = new Order();
-        order.setDate(Date.valueOf("2019-1-1"));
-        Customer customer = new Customer();
-        customer.setFirstName("Frank");
-        customer.setLastName("Zhou");
-        order.setCustomer(customer);
-        OrderLine orderLine1 = new OrderLine();
-        orderLine1.setQuantity(100);
+        Appointment appointment = new Appointment();
+        appointment.setAppdate("app 2019-12-1");
+        Patient patient = new Patient();
+        patient.setName("Patient Jack");
+        patient.setCity("Fairfeild");
+        patient.setStreet("N1000");
+        patient.setZip("56657");
         
-        CD cd = new CD();
-        cd.setArtist("Artist A");
-        cd.setName("CDName");
-//        Product product = new Product();
-//        product.setName("product1");
-//        product.setDescription("product1 description");
+        Payment payment = new Payment();
+        payment.setAmount(1001.12);
+        payment.setPaydate("2019-3-1");
+        Doctor doctor = new Doctor();
+        doctor.setFirstname("Dr A");
+        doctor.setLastname("Jim");
+        doctor.setDoctortype("Eye Doctor");
         
-		orderLine1.setProduct(cd );
-		
-		//-----------------------------------------------------
-        OrderLine orderLine2 = new OrderLine();
-        orderLine2.setQuantity(210);
-        
-//        Product product2 = new Product();
-//        product2.setName("product1");
-//        product2.setDescription("product1 description");
-
-        DVD dvd = new DVD();
-        dvd.setGenre("genre 1");
-        dvd.setName("DVDName");
-		orderLine2.setProduct(dvd );
-		
-		order.addOrderLine(orderLine1);
-		order.addOrderLine(orderLine2);
-        em.persist(order);
-        // Create new instance of Car and set values in it
-        
-        
+        appointment.setDoctor(doctor);
+        appointment.setPatient(patient);
+        appointment.setPayment(payment);
+        em.persist(appointment);
+        //
         em.getTransaction().commit();
         
         
         em.getTransaction().begin();
-//        Order order1 = em.find(Order.class, 1l);
-//        System.out.println(order1.getCustomer().getFirstName());
-//        System.out.println(order1.getOrderLines().get(0).getQuantity());
-//        System.out.println(order1.getOrderLines().get(0).getProduct().getName());
-//        System.out.println(order1.getOrderLines().get(1).getQuantity());
-//        System.out.println(order1.getOrderLines().get(1).getProduct().getName());
-//        
-        //Print result
-//        Frank
-//        100
-//        product1
-//        210
-//        product1
-        
-        
-        Order order1 = em.find(Order.class, 1l);
-        System.out.println(order1.getCustomer().getFirstName());
-        System.out.println(order1.getOrderLines().get(0).getQuantity());
-        System.out.println(order1.getOrderLines().get(0).getProduct().getName());
-        System.out.println(order1.getOrderLines().get(1).getQuantity());
-        System.out.println(order1.getOrderLines().get(1).getProduct().getName());
+        Appointment appointment2=em.find(Appointment.class,1l);
+        System.out.println(appointment2.getAppdate());
+        System.out.println(appointment2.getDoctor().getDoctortype());
+        System.out.println(appointment2.getPayment().getAmount());
         
         em.getTransaction().commit();
-        
-      //Print result
-//        Frank
-//        100
-//        CDName
-//        210
-//        DVDName
         em.close();
         
         
