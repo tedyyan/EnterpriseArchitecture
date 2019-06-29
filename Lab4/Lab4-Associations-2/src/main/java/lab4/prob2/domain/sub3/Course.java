@@ -28,8 +28,8 @@ public class Course {
 	Integer id;
 	String nameString;
 	String teacher;
-	@ManyToMany
-	@JoinTable( name="student_course", 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable( name="course_student", 
 			joinColumns= { @JoinColumn(name = "student_studentid") },
 			inverseJoinColumns= { @JoinColumn(name = "course_id") })
 	List<Student> students = new ArrayList<>();
@@ -41,6 +41,6 @@ public class Course {
 
 	public void addStudent(Student student) {
 		this.students.add(student);
-		
+		student.addCourses(this);
 	}
 }

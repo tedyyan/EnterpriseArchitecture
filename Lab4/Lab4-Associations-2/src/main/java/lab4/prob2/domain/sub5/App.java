@@ -1,19 +1,10 @@
 package lab4.prob2.domain.sub5;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import lab4.prob2.domain.sub1.Department;
-import lab4.prob2.domain.sub1.Employee;
-import lab4.prob2.domain.sub2.Book;
-import lab4.prob2.domain.sub2.Publisher;
-import lab4.prob2.domain.sub3.Course;
-import lab4.prob2.domain.sub3.Student;
-import lab4.prob2.domain.sub4.Customer;
 
 public class App {
 	private static EntityManagerFactory emf;
@@ -26,10 +17,12 @@ public class App {
 
 		
 		//---------------------------e-----------------------------------
+        //Create a Unidirectional ManyToOne association between Reservation and
+        //Book using annotations.
 		em.getTransaction().begin();
 		lab4.prob2.domain.sub5.Reservation reservation1 = new lab4.prob2.domain.sub5.Reservation("12");
 		lab4.prob2.domain.sub5.Reservation reservation2 = new lab4.prob2.domain.sub5.Reservation("32");
-		lab4.prob2.domain.sub5.Book book = new lab4.prob2.domain.sub5.Book("Fu Jing","Jacken Li");
+		Book book = new Book("Fu Jing","Jacken Li");
 		
 		reservation1.setBook(book);
 		reservation2.setBook(book);
@@ -38,6 +31,10 @@ public class App {
 		em.persist(reservation2);
 		em.getTransaction().commit();
 		
+		em.getTransaction().begin();
+		Reservation reservation11 = em.find(Reservation.class, 1);
+		System.out.println(reservation11.getBook().getName());
+		em.getTransaction().commit();
 		
 		em.close();
     }

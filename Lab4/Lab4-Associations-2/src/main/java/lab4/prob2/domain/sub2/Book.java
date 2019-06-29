@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
-@Data
+//@Data
 @Entity(name="sub2Book")
 public class Book {
 
@@ -30,6 +30,31 @@ public class Book {
 			inverseJoinColumns= { @JoinColumn(name = "publisher_id") })
 	Publisher publisher;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+		
+	}
+
 	public Book(String name, String author ){
 		this.name = name;
 		this.author = author;

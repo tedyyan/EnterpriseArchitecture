@@ -1,18 +1,10 @@
 package lab4.prob2.domain.sub4;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import lab4.prob2.domain.sub1.Department;
-import lab4.prob2.domain.sub1.Employee;
-import lab4.prob2.domain.sub2.Book;
-import lab4.prob2.domain.sub2.Publisher;
-import lab4.prob2.domain.sub3.Course;
-import lab4.prob2.domain.sub3.Student;
 import lab4.prob2.domain.sub4.Customer;
 
 public class App {
@@ -22,17 +14,24 @@ public class App {
         		
         EntityManager em = emf.createEntityManager();
         
-        
-		
+        //Create a Unidirectional OneToMany association between Customer and
+        //Reservation using annotations.
+
+        //
 		//---------------------------d-----------------------------------
 		em.getTransaction().begin();
-		lab4.prob2.domain.sub4.Reservation flight1 = new lab4.prob2.domain.sub4.Reservation("12");
-		lab4.prob2.domain.sub4.Reservation flight2 = new lab4.prob2.domain.sub4.Reservation("32");
-		Customer passenger = new Customer("Fu Jing");
-		passenger.addReservation(flight1);
-		passenger.addReservation(flight2);
+		Reservation flight1 = new Reservation("12");
+		Reservation flight2 = new Reservation("32");
+		Customer cumstomer = new Customer("Fu Jing");
+		cumstomer.addReservation(flight1);
+		cumstomer.addReservation(flight2);
 		
-		em.persist(passenger);
+		em.persist(cumstomer);
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+		Customer customer = em.find(Customer.class, 1);
+		System.out.println(customer.getReservations().get(0).getNumber());
+		System.out.println(customer.getReservations().get(1).getNumber());
 		em.getTransaction().commit();
 		
 

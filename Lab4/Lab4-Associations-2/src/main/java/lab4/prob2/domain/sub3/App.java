@@ -1,19 +1,12 @@
 package lab4.prob2.domain.sub3;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import lab4.prob2.domain.sub1.Department;
-import lab4.prob2.domain.sub1.Employee;
-import lab4.prob2.domain.sub2.Book;
-import lab4.prob2.domain.sub2.Publisher;
 import lab4.prob2.domain.sub3.Course;
 import lab4.prob2.domain.sub3.Student;
-import lab4.prob2.domain.sub4.Customer;
 
 public class App {
 	private static EntityManagerFactory emf;
@@ -22,8 +15,9 @@ public class App {
         		
         EntityManager em = emf.createEntityManager();
         
-       
-		
+       //Create a Bidirectional ManyToMany association between Student and Course
+       //using annotations. Be sure to make studentid values application assigned (not generated)!
+        
 		//---------------------------c-------------------------------
 		em.getTransaction().begin();
 		Student student1 = new Student("12333", "Jack Chen");
@@ -37,6 +31,14 @@ public class App {
 		course2.addStudent(student1);
 		em.persist(student1);
 		em.persist(student2);
+		
+//		student1.addCourses(course1);
+//		student2.addCourses(course1);
+//
+//		student1.addCourses(course2);
+//		student2.addCourses(course2);
+//		em.persist(student1);
+//		em.persist(student2);
 		em.getTransaction().commit();
 		
 		em.close();

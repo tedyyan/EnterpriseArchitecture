@@ -23,7 +23,8 @@ public class App {
         EntityManager em = emf.createEntityManager();
         
        
-		
+		//Create an Optional Unidirectional ManyToOne association between Book and
+        //Publisher using annotations and without using NULL fields in the database
 		
 		//----------------------------b---------------------------------
 		em.getTransaction().begin();
@@ -34,6 +35,10 @@ public class App {
 		book2.setPublisher(publisher);
 		em.persist(book1);
 		em.persist(book2);
+		
+		Publisher publisher2 = em.find(Publisher.class, 1);
+		System.out.println(publisher2.getNameString());
+		
 		em.getTransaction().commit();
 		
 		
