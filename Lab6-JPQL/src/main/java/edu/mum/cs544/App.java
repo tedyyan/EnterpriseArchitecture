@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 public class App {
@@ -84,9 +85,10 @@ public class App {
 
         // d) TODO: All flights leaving before 12pm on 08/07/2009
         System.out.println("Question D:");
-        TypedQuery<Flight> query = em.createQuery("from Flight f where f.departureTime=:ddate and f.departureTime<:dtime", Flight.class);
-        query.setParameter("dtime", tf.parse("12:00 pm"));
-        query.setParameter("ddate", df.parse("8/7/9"));
+        TypedQuery<Flight> query = em.createQuery("from Flight f where f.departureDate=:ddate and f.departureTime<:dtime", Flight.class);
+        query.setParameter("dtime", tf.parse("12:00 pm"),TemporalType.TIME);
+        query.setParameter("ddate", df.parse("08/07/2009"),TemporalType.DATE);
+        //System.out.println(df.parse("08/07/2009"));
         flights = query.getResultList();
         System.out.printf("%-9s%-31s%-31s\n", "Flight:", "Departs:",
                 "Arrives:");
