@@ -1,4 +1,4 @@
-package edu.mum.cs544;
+package edu.mum.cs544.bank;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
